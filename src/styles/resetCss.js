@@ -52,6 +52,10 @@ table {
 * {
     box-sizing: border-box;
 }
+
+input {
+	all: unset;
+}
 `;
 
 export default GlobalStyles;
