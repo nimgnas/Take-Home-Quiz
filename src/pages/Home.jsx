@@ -1,18 +1,25 @@
 import styled from "styled-components";
+import useExchangeRate from "../hooks/useExchangeRate";
+import useInputs from "../hooks/useInputs";
 
 function Home() {
+  const [form, onChange] = useInputs({
+    source: 0,
+  });
+  const [exchangeRst, setExchange] = useExchangeRate();
+
   return (
     <StyledHome>
       <InputContainer>
         <SourceInputWrapper>
-          <Input type="number" />
+          <Input type="number" name="source" onChange={onChange} value={form.source} />
           <DropDownDiv>
             <span>KRW</span>
           </DropDownDiv>
         </SourceInputWrapper>
         <span>&#8644;</span>
         <TargetInputWrapper>
-          <Input type="number" />
+          <Input type="number" name="target" onChange={onChange} value={exchangeRst} />
           <DropDownDiv>
             <span>USD</span>
           </DropDownDiv>
