@@ -1,11 +1,12 @@
 import styled from "styled-components";
 import currencyJson from "../assets/currency-symbols.json";
 
-function CurrencyList() {
+function CurrencyList({ setSelectedCurrency }) {
   return (
     <StyledCurrencyList>
       {currencyJson.map((item, id) => (
-        <CurrencyWrapper key={id}>
+        <CurrencyWrapper key={id} onClick={(e) => setSelectedCurrency(e.target.querySelector(".CurrencyWrapper-abbreviation").innerText.slice(0, 3))}>
+          <span></span>
           <span className="CurrencyWrapper-abbreviation">
             {item.abbreviation} | {item.symbol}
           </span>

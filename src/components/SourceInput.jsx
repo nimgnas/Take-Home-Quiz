@@ -4,12 +4,14 @@ import CurrencyList from "./CurrencyList";
 
 function SourceInput() {
   const [isToggled, setIsToggled] = useState(false);
+  const [selectedCurrency, setSelectedCurrency] = useState("KRW");
+
   return (
     <SourceInputWrapper>
       <Input type="number" name="source" />
       <DropDownButton onClick={() => setIsToggled(!isToggled)}>
-        <span className="DropDownButton-abbreviation">KRW</span>
-        {isToggled && <CurrencyList />}
+        <span className="DropDownButton-abbreviation">{selectedCurrency}</span>
+        {isToggled && <CurrencyList setSelectedCurrency={setSelectedCurrency} />}
       </DropDownButton>
     </SourceInputWrapper>
   );
