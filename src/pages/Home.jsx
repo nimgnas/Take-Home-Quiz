@@ -14,7 +14,7 @@ function Home() {
     <StyledHome>
       <InputContainer>
         <SourceInput />
-        <span>&#8644;</span>
+        <span className="InputContainer-arrow">&#8644;</span>
         <TargetInput />
       </InputContainer>
     </StyledHome>
@@ -40,7 +40,7 @@ const InputContainer = styled.div`
   display: flex;
   justify-content: space-between;
 
-  span {
+  .InputContainer-arrow {
     display: flex;
     justify-content: center;
     align-items: center;

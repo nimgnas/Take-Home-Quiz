@@ -6,7 +6,7 @@ function CurrencyList() {
     <StyledCurrencyList>
       {currencyJson.map((item, id) => (
         <CurrencyWrapper key={id}>
-          <span>
+          <span className="CurrencyWrapper-abbreviation">
             {item.abbreviation} | {item.symbol}
           </span>
         </CurrencyWrapper>
@@ -20,7 +20,7 @@ export default CurrencyList;
 const StyledCurrencyList = styled.div`
   width: 400px;
   height: 400px;
-  padding: 2em;
+  padding: 1em;
   border-radius: 5px;
   background-color: white;
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
@@ -36,11 +36,12 @@ const CurrencyWrapper = styled.div`
   padding: 0 1em;
   display: flex;
   justify-content: flex-start;
-  font-size: 0.6rem;
+  align-items: center;
+  font-size: 1.3rem;
   border-radius: 3px;
   cursor: pointer;
 
-  span {
+  .CurrencyWrapper-abbreviation {
     color: rgb(46, 67, 105);
   }
 

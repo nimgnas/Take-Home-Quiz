@@ -8,7 +8,7 @@ function SourceInput() {
     <SourceInputWrapper>
       <Input type="number" name="source" />
       <DropDownButton onClick={() => setIsToggled(!isToggled)}>
-        <span>KRW</span>
+        <span className="DropDownButton-abbreviation">KRW</span>
         {isToggled && <CurrencyList />}
       </DropDownButton>
     </SourceInputWrapper>
@@ -37,11 +37,11 @@ const DropDownButton = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 0.8rem;
+  font-size: 1.5rem;
   background-color: rgb(46, 67, 105);
   position: relative;
 
-  span {
+  .DropDownButton-abbreviation {
     color: white;
   }
 `;
