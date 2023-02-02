@@ -8,7 +8,6 @@ function Home() {
   const [form, onChange] = useInputs({
     source: 0,
   });
-  const [exchangeRst, setExchange] = useExchangeRate();
 
   return (
     <StyledHome>
