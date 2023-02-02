@@ -1,20 +1,36 @@
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 import SourceInput from "../components/SourceInput";
 import TargetInput from "../components/TargetInput";
 import useExchangeRate from "../hooks/useExchangeRate";
-import useInputs from "../hooks/useInputs";
 
 function Home() {
-  const [form, onChange] = useInputs({
-    source: 0,
-  });
+  const [selectedCurrency, setSelectedCurrency] = useState({ source: "KRW", target: "USD" });
+  const [currencyRate, setCurrencyRate] = useExchangeRate();
+
+  const selectCurrency = (e) => {
+    const calledLocation = e.target.parentElement.parentElement.id;
+    const currency = e.target.querySelector(".CurrencyWrapper-abbreviation").innerText.slice(0, 3);
+
+    if (calledLocation === "source-btn") {
+      setSelectedCurrency((prev) => ({ ...prev, source: currency }));
+    }
+    if (calledLocation === "target-btn") {
+      setSelectedCurrency((prev) => ({ ...prev, target: currency }));
+    }
+  };
+
+  useEffect(() => {
+    const { source, target } = selectedCurrency;
+    setCurrencyRate(source, target);
+  }, [selectCurrency]);
 
   return (
     <StyledHome>
       <InputContainer>
-        <SourceInput />
+        <SourceInput currencyRate={currencyRate} selectedCurrency={selectedCurrency} selectCurrency={selectCurrency} />
         <span className="InputContainer-arrow">&#8644;</span>
-        <TargetInput />
+        <TargetInput currencyRate={currencyRate} selectedCurrency={selectedCurrency} selectCurrency={selectCurrency} />
       </InputContainer>
     </StyledHome>
   );

@@ -2,16 +2,15 @@ import { useState } from "react";
 import styled from "styled-components";
 import CurrencyList from "./CurrencyList";
 
-function SourceInput() {
+function SourceInput({ currencyRate, selectedCurrency, selectCurrency }) {
   const [isToggled, setIsToggled] = useState(false);
-  const [selectedCurrency, setSelectedCurrency] = useState("KRW");
 
   return (
     <SourceInputWrapper>
       <Input type="number" name="source" />
-      <DropDownButton onClick={() => setIsToggled(!isToggled)}>
-        <span className="DropDownButton-abbreviation">{selectedCurrency}</span>
-        {isToggled && <CurrencyList setSelectedCurrency={setSelectedCurrency} />}
+      <DropDownButton id="source-btn" onClick={() => setIsToggled(!isToggled)}>
+        <span className="DropDownButton-abbreviation">{selectedCurrency.source}</span>
+        {isToggled && <CurrencyList selectCurrency={selectCurrency} />}
       </DropDownButton>
     </SourceInputWrapper>
   );
