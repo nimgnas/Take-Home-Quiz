@@ -1,12 +1,15 @@
+import { useState } from "react";
 import styled from "styled-components";
+import CurrencyList from "./CurrencyList";
 
 function SourceInput() {
+  const [isToggled, setIsToggled] = useState(false);
   return (
     <SourceInputWrapper>
       <Input type="number" name="source" />
-      <DropDownButton>
+      <DropDownButton onClick={() => setIsToggled(!isToggled)}>
         <span>KRW</span>
-        <DropDownList />
+        {isToggled && <CurrencyList />}
       </DropDownButton>
     </SourceInputWrapper>
   );
@@ -41,15 +44,4 @@ const DropDownButton = styled.div`
   span {
     color: white;
   }
-`;
-
-const DropDownList = styled.div`
-  width: 400px;
-  height: 400px;
-  border-radius: 5px;
-  background-color: white;
-  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
-  position: absolute;
-  bottom: 0;
-  transform: translate(0, 100%);
 `;
