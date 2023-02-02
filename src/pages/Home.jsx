@@ -3,10 +3,15 @@ import styled from "styled-components";
 import SourceInput from "../components/SourceInput";
 import TargetInput from "../components/TargetInput";
 import useExchangeRate from "../hooks/useExchangeRate";
+import useInputs from "../hooks/useInputs";
 
 function Home() {
   const [selectedCurrency, setSelectedCurrency] = useState({ source: "KRW", target: "USD" });
   const [currencyRate, setCurrencyRate] = useExchangeRate();
+  const [amount, onChange] = useInputs({
+    sourceAmount: 0,
+    targetAmount: 0,
+  });
 
   const selectCurrency = (e) => {
     const calledLocation = e.target.parentElement.parentElement.id;
@@ -28,9 +33,9 @@ function Home() {
   return (
     <StyledHome>
       <InputContainer>
-        <SourceInput currencyRate={currencyRate} selectedCurrency={selectedCurrency} selectCurrency={selectCurrency} />
+        <SourceInput currencyRate={currencyRate} selectedCurrency={selectedCurrency} selectCurrency={selectCurrency} onChange={onChange} amount={amount} />
         <span className="InputContainer-arrow">&#8644;</span>
-        <TargetInput currencyRate={currencyRate} selectedCurrency={selectedCurrency} selectCurrency={selectCurrency} />
+        <TargetInput currencyRate={currencyRate} selectedCurrency={selectedCurrency} selectCurrency={selectCurrency} onChange={onChange} amount={amount} />
       </InputContainer>
     </StyledHome>
   );

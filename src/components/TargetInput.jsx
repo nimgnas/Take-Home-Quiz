@@ -2,12 +2,12 @@ import { useState } from "react";
 import styled from "styled-components";
 import CurrencyList from "./CurrencyList";
 
-function TargetInput({ currencyRate, selectedCurrency, selectCurrency }) {
+function TargetInput({ currencyRate, selectedCurrency, selectCurrency, onChange, amount }) {
   const [isToggled, setIsToggled] = useState(false);
 
   return (
     <TargetInputWrapper>
-      <Input type="number" name="target" />
+      <Input type="number" name="targetAmount" onChange={onChange} value={amount.targetAmount === 0 ? amount.sourceAmount * currencyRate : amount.targetAmount} />
       <DropDownButton id="target-btn" onClick={() => setIsToggled(!isToggled)}>
         <span className="DropDownButton-abbreviation">{selectedCurrency.target}</span>
         {isToggled && <CurrencyList selectCurrency={selectCurrency} />}
