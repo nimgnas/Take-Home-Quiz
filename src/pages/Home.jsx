@@ -1,18 +1,23 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
-import SourceInput from "../components/SourceInput";
-import TargetInput from "../components/TargetInput";
+import AmountInput from "../components/AmountInput";
 import useExchangeRate from "../hooks/useExchangeRate";
-import useInputs from "../hooks/useInputs";
+import { fromSourceToTarget, fromTargetToSource } from "../utils";
 
 function Home() {
   const [selectedCurrency, setSelectedCurrency] = useState({ source: "KRW", target: "USD" });
+  const [inputs, setInputs] = useState({ input: "", amount: "" });
   const [currencyRate, setCurrencyRate] = useExchangeRate();
-  const [amount, onChange] = useInputs({
-    sourceAmount: 0,
-    targetAmount: 0,
-  });
 
+  const sourceChange = (amount) => {
+    setInputs({ input: "source", amount });
+  };
+
+  const targetChange = (amount) => {
+    setInputs({ input: "target", amount });
+  };
+
+  // dropdown에서 통화를 선택하는 함수
   const selectCurrency = (e) => {
     const calledLocation = e.target.parentElement.parentElement.id;
     const currency = e.target.querySelector(".CurrencyWrapper-abbreviation").innerText.slice(0, 3);
@@ -25,17 +30,34 @@ function Home() {
     }
   };
 
+  // 통화가 변경될때마다 환율 계산
   useEffect(() => {
     const { source, target } = selectedCurrency;
     setCurrencyRate(source, target);
   }, [selectCurrency]);
 
+  const { input, amount } = inputs;
+
   return (
     <StyledHome>
       <InputContainer>
-        <SourceInput currencyRate={currencyRate} selectedCurrency={selectedCurrency} selectCurrency={selectCurrency} onChange={onChange} amount={amount} />
+        <AmountInput
+          type="source"
+          currencyRate={currencyRate}
+          selectedCurrency={selectedCurrency}
+          selectCurrency={selectCurrency}
+          onChange={sourceChange}
+          amount={input === "target" ? fromSourceToTarget(amount, currencyRate) : amount}
+        />
         <span className="InputContainer-arrow">&#8644;</span>
-        <TargetInput currencyRate={currencyRate} selectedCurrency={selectedCurrency} selectCurrency={selectCurrency} onChange={onChange} amount={amount} />
+        <AmountInput
+          type="target"
+          currencyRate={currencyRate}
+          selectedCurrency={selectedCurrency}
+          selectCurrency={selectCurrency}
+          onChange={targetChange}
+          amount={input === "source" ? fromTargetToSource(amount, currencyRate) : amount}
+        />
       </InputContainer>
     </StyledHome>
   );

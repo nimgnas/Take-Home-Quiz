@@ -2,23 +2,23 @@ import { useState } from "react";
 import styled from "styled-components";
 import CurrencyList from "./CurrencyList";
 
-function TargetInput({ currencyRate, selectedCurrency, selectCurrency, onChange, amount }) {
+function AmountInput({ type, selectedCurrency, selectCurrency, onChange, amount }) {
   const [isToggled, setIsToggled] = useState(false);
 
   return (
-    <TargetInputWrapper>
-      <Input type="number" name="targetAmount" onChange={onChange} value={amount.targetAmount === 0 ? amount.sourceAmount * currencyRate : amount.targetAmount} />
-      <DropDownButton id="target-btn" onClick={() => setIsToggled(!isToggled)}>
-        <span className="DropDownButton-abbreviation">{selectedCurrency.target}</span>
+    <SourceInputWrapper>
+      <Input type="number" name={`${type}Amount`} onChange={(e) => onChange(e.target.value)} value={amount} />
+      <DropDownButton id={`${type}-btn`} onClick={() => setIsToggled(!isToggled)}>
+        <span className="DropDownButton-abbreviation">{selectedCurrency[type]}</span>
         {isToggled && <CurrencyList selectCurrency={selectCurrency} />}
       </DropDownButton>
-    </TargetInputWrapper>
+    </SourceInputWrapper>
   );
 }
 
-export default TargetInput;
+export default AmountInput;
 
-const TargetInputWrapper = styled.div`
+const SourceInputWrapper = styled.div`
   height: 100%;
   width: 45%;
   display: flex;
