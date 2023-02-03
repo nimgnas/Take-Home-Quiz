@@ -11,9 +11,7 @@ function useExchangeRate() {
 
     fetch(`https://api.exchangerate.host/convert?${params}`)
       .then((res) => res.json())
-      .then((rst) => {
-        setState(rst.info.rate);
-      });
+      .then((rst) => setState(rst.info.rate));
   };
 
   return [state, calculate];
