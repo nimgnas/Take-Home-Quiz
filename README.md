@@ -1,8 +1,7 @@
 # Take-Home-Quiz
 
 > npm i <br />
-
-## npm start
+> npm start
 
     "react": "^18.2.0",
     "styled-components": "^5.3.6"
