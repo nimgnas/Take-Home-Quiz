@@ -10,13 +10,10 @@ function Home() {
   const [selectedCurrency, selectCurrency] = useSelectCurrency()
   const [currencyRate, setCurrencyRate] = useExchangeRate();
 
-  const sourceChange = (amount) => {
-    setInputs({ input: "source", amount });
-  };
-
-  const targetChange = (amount) => {
-    setInputs({ input: "target", amount });
-  };
+  const inputChange = (eventTarget) => {
+    const {name, value} = eventTarget``
+    setInputs({input: name, amount: value})
+  }
 
   // 통화가 변경될때마다 환율 계산
   useEffect(() => {
@@ -34,8 +31,8 @@ function Home() {
           currencyRate={currencyRate}
           selectedCurrency={selectedCurrency}
           selectCurrency={selectCurrency}
-          onChange={sourceChange}
-          amount={input === "target" ? fromSourceToTarget(amount, currencyRate) : amount}
+          onChange={inputChange}
+          amount={input === "targetAmount" ? fromSourceToTarget(amount, currencyRate) : amount}
         />
         <span className="InputContainer-arrow">&#8644;</span>
         <AmountInput
@@ -43,8 +40,8 @@ function Home() {
           currencyRate={currencyRate}
           selectedCurrency={selectedCurrency}
           selectCurrency={selectCurrency}
-          onChange={targetChange}
-          amount={input === "source" ? fromTargetToSource(amount, currencyRate) : amount}
+          onChange={inputChange}
+          amount={input === "sourceAmount" ? fromTargetToSource(amount, currencyRate) : amount}
         />
       </InputContainer>
     </StyledHome>

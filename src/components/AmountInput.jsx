@@ -7,7 +7,7 @@ function AmountInput({ type, selectedCurrency, selectCurrency, onChange, amount 
 
   return (
     <SourceInputWrapper>
-      <Input type="number" name={`${type}Amount`} onChange={(e) => onChange(e.target.value)} value={amount} />
+      <Input type="number" name={`${type}Amount`} onChange={(e) => onChange(e.target)} value={amount} />
       <DropDownButton id={`${type}-btn`} onClick={() => setIsToggled(!isToggled)}>
         <span className="DropDownButton-abbreviation">{selectedCurrency[type]}</span>
         {isToggled && <CurrencyList selectCurrency={selectCurrency} />}
