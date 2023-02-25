@@ -3,10 +3,11 @@ import styled from "styled-components";
 import AmountInput from "../components/AmountInput";
 import useExchangeRate from "../hooks/useExchangeRate";
 import { fromSourceToTarget, fromTargetToSource } from "../utils";
+import useSelectCurrency from "../hooks/useSelectCurrency";
 
 function Home() {
-  const [selectedCurrency, setSelectedCurrency] = useState({ source: "KRW", target: "USD" });
   const [inputs, setInputs] = useState({ input: "", amount: "" });
+  const [selectedCurrency, selectCurrency] = useSelectCurrency()
   const [currencyRate, setCurrencyRate] = useExchangeRate();
 
   const sourceChange = (amount) => {
@@ -15,19 +16,6 @@ function Home() {
 
   const targetChange = (amount) => {
     setInputs({ input: "target", amount });
-  };
-
-  // dropdown에서 통화를 선택하는 함수
-  const selectCurrency = (e) => {
-    const calledLocation = e.target.parentElement.parentElement.id;
-    const currency = e.target.querySelector(".CurrencyWrapper-abbreviation").innerText.slice(0, 3);
-
-    if (calledLocation === "source-btn") {
-      setSelectedCurrency((prev) => ({ ...prev, source: currency }));
-    }
-    if (calledLocation === "target-btn") {
-      setSelectedCurrency((prev) => ({ ...prev, target: currency }));
-    }
   };
 
   // 통화가 변경될때마다 환율 계산
