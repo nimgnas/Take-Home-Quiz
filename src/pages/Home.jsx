@@ -11,7 +11,7 @@ function Home() {
   const [currencyRate, setCurrencyRate] = useExchangeRate();
 
   const inputChange = (eventTarget) => {
-    const {name, value} = eventTarget``
+    const {name, value} = eventTarget
     setInputs({input: name, amount: value})
   }
 
